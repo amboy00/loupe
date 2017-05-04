@@ -1,0 +1,19 @@
+{
+  "extends": "airbnb",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "global-require": 0,
+    "import/newline-after-import": 0,
+    "no-shadow": 0,
+    "react/jsx-filename-extension": 0,
+    "react/require-extension": 0
+  },
+  "parserOptions":{
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  }
+}
