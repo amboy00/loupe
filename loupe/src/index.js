@@ -15,6 +15,9 @@ var RenderQueue = require('../models/render-queue');
 var Router = require('./router');
 var Modal = require('react-modal');
 
+import './loupe.scss';
+
+
 window.app = {};
 
 window.app.router = new Router();
