@@ -5,7 +5,7 @@
   "main": "trace.js",
   "scripts": {
     "build": "make build",
-    "start": "webpack-dev-server -d --progress --content-base loups",
+    "start": "webpack-dev-server -d --progress --content-base loupe"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +18,7 @@
     "ampersand-view": "^7.1.1",
     "brace": "^0.3.0",
     "deval": "~0.1.1",
+    "es6-promise": "^4.0.5",
     "escodegen": "~1.4.1",
     "esprima": "~1.2.2",
     "falafel": "~0.3.1",
@@ -35,9 +36,23 @@
   },
   "devDependencies": {
     "autoprefixer": "^3.0.0",
+    "babel-cli": "^6.11.4",
+    "babel-core": "^6.2.1",
+    "babel-istanbul": "^0.11.0",
+    "babel-loader": "^6.2.0",
+    "babel-polyfill": "^6.20.0",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-preset-react": "^6.1.18",
+    "babel-preset-stage-1": "^6.1.18",
     "browserify": "^5.11.1",
     "building-static-server": "^2.1.0",
+    "es6-promise-promise": "^1.0.0",
+    "extract-text-webpack-plugin": "^2.1.0",
     "glob-cli": "^1.0.0",
-    "reactify": "^0.14.0"
+    "offline-plugin": "^4.7.0",
+    "reactify": "^0.14.0",
+    "webpack": "^2.5.0",
+    "webpack-dev-server": "^2.4.5",
+    "webpack-merge": "^4.1.0"
   }
 }

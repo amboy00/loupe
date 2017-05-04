@@ -50,7 +50,7 @@ if (TARGET === 'start' || !TARGET) {
   module.exports = merge(common, {
     devtool: 'eval-source-map',
     devServer: {
-      contentBase: path.join(__dirname, '/Zeus'),
+      contentBase: path.join(__dirname, '/loupe'),
       historyApiFallback: true,
       hot: true,
       inline: true,
