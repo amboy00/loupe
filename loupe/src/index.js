@@ -1,19 +1,19 @@
-var React = require('react/addons');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Modal from 'react-modal';
+import AmpersandCollection from 'ampersand-collection';
+import AmpersandState from 'ampersand-state';
+import deval from 'deval';
+
 window.React = React;
-var App = require('./components/app.jsx');
-var AmpersandCollection = require('ampersand-collection');
-var AmpersandState = require('ampersand-state');
-var deval = require('deval');
 
-var CallStack = require('../models/callstack');
-
-var Code = require('../models/code');
-var Apis = require('../models/apis');
-var CallbackQueue = require('../models/callback-queue');
-var RenderQueue = require('../models/render-queue');
-
-var Router = require('./router');
-var Modal = require('react-modal');
+import App from './components/app';
+import CallStack from '../models/callstack';
+import Code from '../models/code';
+import Apis from '../models/apis';
+import CallbackQueue from '../models/callback-queue';
+import RenderQueue from '../models/render-queue';
+import Router from './router';
 
 import './loupe.scss';
 
@@ -23,11 +23,11 @@ window.app = {};
 window.app.router = new Router();
 
 window.app.store = {
-    callstack: new CallStack(),
-    code: new Code(),
-    apis: new Apis(),
-    queue: new CallbackQueue(),
-    renderQueue: new RenderQueue()
+  callstack: new CallStack(),
+  code: new Code(),
+  apis: new Apis(),
+  queue: new CallbackQueue(),
+  renderQueue: new RenderQueue()
 };
 
 app.store.code.on('change:codeLines', function () {
@@ -42,59 +42,59 @@ app.store.code.on('change:encodedSource', function () {
 //});
 
 app.store.code.on('node:will-run', function (id, source, invocation) {
-    app.store.callstack.add({
-        _id: id,
-        code: source
-    });
+  app.store.callstack.add({
+    _id: id,
+    code: source
+  });
 });
 
 app.store.code.on('node:did-run', function (id, invocation) {
-    app.store.callstack.pop();
-    //app.store.callstack.remove(app.store.callstack.at(app.store.call
-    //app.store.callstack.remove(id + ':' + invocation);
+  app.store.callstack.pop();
+  //app.store.callstack.remove(app.store.callstack.at(app.store.call
+  //app.store.callstack.remove(id + ':' + invocation);
 });
 
 app.store.code.on('webapi:started', function (data) {
-    app.store.apis.add(data, { merge: true });
+  app.store.apis.add(data, { merge: true });
 });
 
 app.store.code.on('callback:shifted', function (id) {
-    var callback = app.store.queue.get(id);
-    if (!callback) {
-        callback = app.store.apis.get(id);
-    }
+  var callback = app.store.queue.get(id);
+  if (!callback) {
+    callback = app.store.apis.get(id);
+  }
 
-    app.store.callstack.add({
-        id: callback.id.toString(),
-        code: callback.code,
-        isCallback: true
-    });
-    app.store.queue.remove(callback);
+  app.store.callstack.add({
+    id: callback.id.toString(),
+    code: callback.code,
+    isCallback: true
+  });
+  app.store.queue.remove(callback);
 });
 
 app.store.code.on('callback:completed', function (id) {
-    //app.store.callstack.remove(id.toString());
-    app.store.callstack.pop();
+  //app.store.callstack.remove(id.toString());
+  app.store.callstack.pop();
 });
 
 app.store.code.on('callback:spawn', function (data) {
-    var webapi = app.store.apis.get(data.apiId);
+  var webapi = app.store.apis.get(data.apiId);
 
-    if (webapi) {
-        webapi.trigger('callback:spawned', webapi);
-    }
-    app.store.queue.add(data);
+  if (webapi) {
+    webapi.trigger('callback:spawned', webapi);
+  }
+  app.store.queue.add(data);
 });
 
 app.store.apis.on('callback:spawn', function (data) {
-    app.store.queue.add(data);
+  app.store.queue.add(data);
 });
 
 app.store.code.on('reset-everything', function () {
-    app.store.renderQueue.reset();
-    app.store.queue.reset();
-    app.store.callstack.reset();
-    app.store.apis.reset();
+  app.store.renderQueue.reset();
+  app.store.queue.reset();
+  app.store.callstack.reset();
+  app.store.apis.reset();
 });
 
 app.store.code.on('paused', function () {
@@ -125,4 +125,4 @@ if (window.location.origin.match('latentflip.com')) {
 
 Modal.setAppElement(document.body);
 Modal.injectCSS();
-React.renderComponent(App(), document.body);
+ReactDOM.render(<App />, document.getElementById('app'));
